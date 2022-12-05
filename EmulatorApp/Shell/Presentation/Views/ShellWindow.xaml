@@ -1,0 +1,69 @@
+﻿<Window x:Class="Emulator.Shell.Presentation.Views.ShellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:vm="clr-namespace:Emulator.Shell.Applications.ViewModels"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance {x:Type vm:ShellViewModel}}"
+        Title="Emulator" Height="600" Width="900" Background="{StaticResource LightBackground}" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <DockPanel x:Name="rootContainer">
+        <Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource DarkBorderBrush}" Height="120">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Status Message" FontWeight="SemiBold" Margin="5,5,5,0"/>
+                <ContentPresenter Content="{Binding LogView}"/>
+            </DockPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Left" BorderThickness="0,0,0,0" BorderBrush="{StaticResource LightBackground}" Width="250">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Plugins List" FontWeight="SemiBold" Margin="5,5,5,0"/>
+                <Button DockPanel.Dock="Bottom" Background="{StaticResource LightBackground}" Command="{Binding LoadCommand}" Content="Load" Height="24" Width="150" Margin="11"/>
+                <ListBox x:Name="pluginsBox" ItemsSource="{Binding Plugins}" SelectedItem="{Binding SelectedPlugin}" Margin="3">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,11">
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Version}"/>
+                                <TextBlock Text="{Binding Company}"/>
+                                <TextBlock Text="{Binding Copyright}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Left" BorderThickness="1,0,0,0" BorderBrush="{StaticResource DarkBorderBrush}" Width="250" >
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Task Board" FontWeight="SemiBold" Margin="5,5,5,0"/>
+                <ContentPresenter Content="{Binding TaskView}"/>
+            </DockPanel>
+        </Border>
+
+        <Border BorderThickness="1,0,0,0" BorderBrush="{StaticResource DarkBorderBrush}">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Plugins View" FontWeight="SemiBold" Margin="5,5,5,0"/>
+                <TabControl Grid.Row="1" ItemsSource="{Binding PluginViews}" SelectedItem="{Binding SelectedPluginView}" Margin="0" Padding="0" BorderThickness="0,1,0,0">
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="TabItem">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock VerticalAlignment="Center" Text="Plugin Item" Margin="3,0,7,0"/>
+                                            <Button Command="{Binding DataContext.UnloadCommand, ElementName=rootContainer}"
+                                                    Visibility="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TabItem}}, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                    Width="16" Height="16" Margin="0,1,0,0" Background="Transparent" BorderBrush="Transparent">
+                                                <Path Data="M 0,0 L 7,7 M 7,0 L 0,7" StrokeThickness="2" Stroke="DarkGray"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                </TabControl>
+            </DockPanel>
+        </Border>
+    </DockPanel>
+</Window>
