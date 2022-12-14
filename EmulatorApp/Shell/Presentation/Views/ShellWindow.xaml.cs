@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows;
 using Emulator.Shell.Applications.Views;
+using MahApps.Metro.Controls;
 
 namespace Emulator.Shell.Presentation.Views
 {
     [Export(typeof(IShellView))]
-    public partial class ShellWindow : IShellView
+    public partial class ShellWindow : MetroWindow, IShellView
     {
         public ShellWindow()
         {

@@ -8,7 +8,10 @@
                 <ResourceDictionary Source="Presentation/Resources/LayoutResources.xaml"/>
                 <ResourceDictionary Source="Presentation/Resources/ConverterResources.xaml"/>
                 <ResourceDictionary Source="Presentation/Resources/ControlResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
-         </ResourceDictionary>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

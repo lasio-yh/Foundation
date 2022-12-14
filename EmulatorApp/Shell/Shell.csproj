@@ -21,7 +21,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\out\Debug\</OutputPath>
+    <OutputPath>..\..\output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -127,16 +127,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
-      <Project>{d378b63c-b133-4b7c-a707-3fb1e10a023a}</Project>
-      <Name>PluginFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Shell.Interfaces\Shell.Interfaces.csproj">
-      <Project>{61b31198-9357-462b-a54c-aa33a3b4db0f}</Project>
-      <Name>Shell.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="MahApps.Metro">
+      <Version>2.4.9</Version>
+    </PackageReference>
     <PackageReference Include="System.Reactive.PlatformServices">
       <Version>3.1.1</Version>
     </PackageReference>
@@ -149,6 +142,16 @@
     <PackageReference Include="System.Waf.Wpf">
       <Version>4.1.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{d378b63c-b133-4b7c-a707-3fb1e10a023a}</Project>
+      <Name>PluginFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shell.Interfaces\Shell.Interfaces.csproj">
+      <Project>{61b31198-9357-462b-a54c-aa33a3b4db0f}</Project>
+      <Name>Shell.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

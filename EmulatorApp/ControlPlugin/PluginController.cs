@@ -33,6 +33,9 @@ namespace Emulator.ControlPlugin
 
         public void OnReceive(object sender)
         {
+            if (sender == null)
+                return;
+
             Handler.AddItem(sender.ToString());
         }
 

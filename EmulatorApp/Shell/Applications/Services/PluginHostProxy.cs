@@ -37,31 +37,37 @@ namespace Emulator.Shell.Applications.Services
 
         private void StartHost()
         {
-            var processInfo = new ProcessStartInfo
+            try
             {
-                Arguments = new TypedArgs(parentProcessId, PluginInfo.AssemblyFile, instanceName).ToArgs(),
-                CreateNoWindow = true, // Note: The command window might be helpful to search for errors.
-                UseShellExecute = false,
-                FileName = "PluginHost.exe",
-                WorkingDirectory = Path.GetDirectoryName(PluginInfo.AssemblyFile)
-            };
-
-            using (var readyEvent = new EventWaitHandle(false, EventResetMode.ManualReset, instanceName + ".Ready"))
-            {
-                var pluginProcess = Process.Start(processInfo);
-                pluginProcess.EnableRaisingEvents = true;
-                pluginProcess.Exited += PluginProcessExited;
-                if (!readyEvent.WaitOne(3000))
+                var processInfo = new ProcessStartInfo
                 {
-                    throw new InvalidOperationException("Plugin host process not ready.");
-                }
-            }
+                    Arguments = new TypedArgs(parentProcessId, PluginInfo.AssemblyFile, instanceName).ToArgs(),
+                    CreateNoWindow = true, // Note: The command window might be helpful to search for errors.
+                    UseShellExecute = false,
+                    FileName = "PluginHost.exe",
+                    WorkingDirectory = Path.GetDirectoryName(PluginInfo.AssemblyFile)
+                };
 
-            var url = "ipc://" + instanceName + "/PluginLoader";
-            pluginLoader = (IPluginLoader)Activator.GetObject(typeof(IPluginLoader), url);
-            // TODO: This won't work if the plugin crashes during startup!
-            var contract = pluginLoader.LoadPlugin(PluginInfo.AssemblyFile, PluginInfo.PluginControllerName);
-            RemoteView = FrameworkElementAdapters.ContractToViewAdapter(contract);
+                using (var readyEvent = new EventWaitHandle(false, EventResetMode.ManualReset, instanceName + ".Ready"))
+                {
+                    var pluginProcess = Process.Start(processInfo);
+                    pluginProcess.EnableRaisingEvents = true;
+                    pluginProcess.Exited += PluginProcessExited;
+                    if (!readyEvent.WaitOne(3000))
+                    {
+                        throw new InvalidOperationException("Plugin host process not ready.");
+                    }
+                }
+
+                var url = "ipc://" + instanceName + "/PluginLoader";
+                pluginLoader = (IPluginLoader)Activator.GetObject(typeof(IPluginLoader), url);
+                // TODO: This won't work if the plugin crashes during startup!
+                var contract = pluginLoader.LoadPlugin(PluginInfo.AssemblyFile, PluginInfo.PluginControllerName);
+                RemoteView = FrameworkElementAdapters.ContractToViewAdapter(contract);
+            }
+            catch (Exception ex) 
+            {
+            }
         }
 
         private void PluginProcessExited(object sender, EventArgs e)

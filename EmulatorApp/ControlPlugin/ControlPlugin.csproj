@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\out\Debug\Plugins\ControlPlugin\</OutputPath>
+    <OutputPath>..\..\output\Plugins\ControlPlugin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -78,22 +78,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseCorePlugin\BaseCorePlugin.csproj">
-      <Project>{085a3767-0f46-4923-8eb5-596ce276fc47}</Project>
-      <Name>BaseCorePlugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
-      <Project>{d378b63c-b133-4b7c-a707-3fb1e10a023a}</Project>
-      <Name>PluginFramework</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Shell.Interfaces\Shell.Interfaces.csproj">
-      <Project>{61b31198-9357-462b-a54c-aa33a3b4db0f}</Project>
-      <Name>Shell.Interfaces</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Views\ControlResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +121,20 @@
     <PackageReference Include="System.Waf.Wpf">
       <Version>4.1.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaseCorePlugin\BaseCorePlugin.csproj">
+      <Project>{085a3767-0f46-4923-8eb5-596ce276fc47}</Project>
+      <Name>BaseCorePlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginFramework\PluginFramework.csproj">
+      <Project>{d378b63c-b133-4b7c-a707-3fb1e10a023a}</Project>
+      <Name>PluginFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shell.Interfaces\Shell.Interfaces.csproj">
+      <Project>{61b31198-9357-462b-a54c-aa33a3b4db0f}</Project>
+      <Name>Shell.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
